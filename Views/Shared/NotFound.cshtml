@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Not Found";
+}
+
+    <div class="NotFoundView boxProperties">
+        <h2 style="text-align: center">Oops! Something went wrong...</h2>
+
+        <img style="margin: 0 auto" class="avatar" src="~/images/error.jpg" asp-append-version="true" />
+
+        <h4>@ViewBag.ErrorMessage</h4>
+
+        <a href="##" style="margin: auto" class="customButton" onClick="history.go(-1); return false;">Go back</a>
+    </div> 

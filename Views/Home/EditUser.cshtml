@@ -1,0 +1,30 @@
+﻿@model EditUserViewModel
+
+<form enctype="multipart/form-data" method="post">
+    <div class="editUserForm boxProperties">
+        <div class="labelArea">
+            <label asp-for="Name"></label>
+            <label asp-for="Age"></label>
+            <label asp-for="Bio"></label>
+            <label>Photo</label>
+        </div>
+        <div class="inputArea">
+            <input asp-for="Name" />
+            <input asp-for="Age" />
+            <input hidden asp-for="Email" />
+            <textarea id="bioArea" asp-for="Bio"></textarea>
+            <input type="file" id="file" accept="image/*" name="photo" />
+            <label class="customButton" style="margin-left: 0" for="file"><i class="far fa-file-image"></i> Choose a photo</label>
+        </div>
+        <div class="buttonArea">
+            <label class="customButton" for="updateButton">Update</label>
+            <button type="submit" id="updateButton" class="button">Update</button>
+
+            <label class="customButton" for="cancelButton">Cancel</label>
+            <a id="cancelButton" asp-controller="Home" asp-action="showProfile" asp-route-id="@Model.Name">Cancel</a>
+        </div>
+        <div asp-validation-summary="All" class="text-danger" style="padding-left: 10px;"></div>
+    </div>
+
+</form>
+

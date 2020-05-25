@@ -1,0 +1,68 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<ApplicationUser> signInManager;
+@inject UserManager<ApplicationUser> userManager;
+@inject IMumblrRepository mumblrRepository;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Mumblr</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="https://kit.fontawesome.com/a234f90afe.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <nav>
+        <a asp-controller="Home" asp-action="Index" class="logo">Mumblr</a>
+
+        <ul>
+            @if (signInManager.IsSignedIn(User))
+            {
+                var user = await userManager.FindByNameAsync(User.Identity.Name);
+                var userId = user.Id;
+                var unreadMessages = mumblrRepository.combinedUnreadMessages(user.Id);
+                var displayUnread = ($"({unreadMessages})");
+
+                <li class="item">
+                    <a asp-controller="Home" asp-action="Inbox"><i class="fas fa-inbox" style="padding-right: 6px"></i>  Inbox @if (unreadMessages > 0) {@displayUnread}</a>
+                </li>
+                <li class="item">
+                    <a asp-controller="Home" asp-action="ListUsers"><i class="fas fa-users" style="padding-right: 6px"></i>  Show Users</a>
+                </li>
+
+                <li class="item">
+                    <a asp-controller="Home" asp-action="showProfile" asp-route-id="@userId">
+                        <i class="fas fa-user" style="padding-right: 6px"></i>  @User.Identity.Name
+                    </a>
+                </li>
+                <li class="item">
+                    <a asp-controller="Account" asp-action="Logout"><i class="fas fa-sign-out-alt" style="padding-right: 6px"></i>  Logout</a>
+                </li>
+            }
+            else
+            {
+                <li class="item loginButton">
+                    <a asp-controller="Account" asp-action="Login"><i class="fas fa-sign-in-alt" style="padding-right: 6px"></i>  Login</a>
+                </li>
+                <li class="item registerButton">
+                    <a asp-controller="Account" asp-action="Register"><i class="fas fa-address-card" style="padding-right: 6px"></i>  Register</a>
+                </li>
+            }
+        </ul>
+
+    </nav>
+
+    <main>
+        <div class="container">
+            @RenderBody()
+        </div>
+    </main>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

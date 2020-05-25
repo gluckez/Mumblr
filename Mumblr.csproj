@@ -1,0 +1,139 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200309101242_MapFriends.cs" />
+    <Compile Remove="Migrations\20200309101242_MapFriends.Designer.cs" />
+    <Compile Remove="Migrations\20200309102732_ForeignKey.cs" />
+    <Compile Remove="Migrations\20200309102732_ForeignKey.Designer.cs" />
+    <Compile Remove="Migrations\20200309110332_FriendsTable.cs" />
+    <Compile Remove="Migrations\20200309110332_FriendsTable.Designer.cs" />
+    <Compile Remove="Migrations\20200309111107_Friends.cs" />
+    <Compile Remove="Migrations\20200309111107_Friends.Designer.cs" />
+    <Compile Remove="Migrations\20200309130057_MapFriends.cs" />
+    <Compile Remove="Migrations\20200309130057_MapFriends.Designer.cs" />
+    <Compile Remove="Migrations\20200309130854_MapFriends.cs" />
+    <Compile Remove="Migrations\20200309130854_MapFriends.Designer.cs" />
+    <Compile Remove="Migrations\20200311105217_FriendSystem.cs" />
+    <Compile Remove="Migrations\20200311105217_FriendSystem.Designer.cs" />
+    <Compile Remove="Migrations\20200311105552_FriendSystem.cs" />
+    <Compile Remove="Migrations\20200311105552_FriendSystem.Designer.cs" />
+    <Compile Remove="Migrations\20200311105709_FriendSystem.cs" />
+    <Compile Remove="Migrations\20200311105709_FriendSystem.Designer.cs" />
+    <Compile Remove="Migrations\20200311110806_FriendSystem.cs" />
+    <Compile Remove="Migrations\20200311110806_FriendSystem.Designer.cs" />
+    <Compile Remove="Migrations\20200311121035_FriendSystem.cs" />
+    <Compile Remove="Migrations\20200311121035_FriendSystem.Designer.cs" />
+    <Compile Remove="Migrations\20200311123552_FriendsSystem.cs" />
+    <Compile Remove="Migrations\20200311123552_FriendsSystem.Designer.cs" />
+    <Compile Remove="Migrations\20200311155011_test.cs" />
+    <Compile Remove="Migrations\20200311155011_test.Designer.cs" />
+    <Compile Remove="Migrations\20200311155304_test2.cs" />
+    <Compile Remove="Migrations\20200311155304_test2.Designer.cs" />
+    <Compile Remove="Migrations\20200311155715_test3.cs" />
+    <Compile Remove="Migrations\20200311155715_test3.Designer.cs" />
+    <Compile Remove="Migrations\20200311161436_test.cs" />
+    <Compile Remove="Migrations\20200311161436_test.Designer.cs" />
+    <Compile Remove="Migrations\20200311171039_test2.cs" />
+    <Compile Remove="Migrations\20200311171039_test2.Designer.cs" />
+    <Compile Remove="Migrations\20200311172501_test3.cs" />
+    <Compile Remove="Migrations\20200311172501_test3.Designer.cs" />
+    <Compile Remove="Migrations\20200311172717_test3.cs" />
+    <Compile Remove="Migrations\20200311172717_test3.Designer.cs" />
+    <Compile Remove="Migrations\20200311173222_test3.cs" />
+    <Compile Remove="Migrations\20200311173222_test3.Designer.cs" />
+    <Compile Remove="Migrations\20200311173428_test4.cs" />
+    <Compile Remove="Migrations\20200311173428_test4.Designer.cs" />
+    <Compile Remove="Migrations\20200311174438_test4.cs" />
+    <Compile Remove="Migrations\20200311174438_test4.Designer.cs" />
+    <Compile Remove="Migrations\20200311174545_test5.cs" />
+    <Compile Remove="Migrations\20200311174545_test5.Designer.cs" />
+    <Compile Remove="Migrations\20200311174838_test6.cs" />
+    <Compile Remove="Migrations\20200311174838_test6.Designer.cs" />
+    <Compile Remove="Migrations\20200311180021_test.cs" />
+    <Compile Remove="Migrations\20200311180021_test.Designer.cs" />
+    <Compile Remove="Migrations\20200311180304_test2.cs" />
+    <Compile Remove="Migrations\20200311180304_test2.Designer.cs" />
+    <Compile Remove="Migrations\20200311180346_test3.cs" />
+    <Compile Remove="Migrations\20200311180346_test3.Designer.cs" />
+    <Compile Remove="Migrations\20200311180429_test2.cs" />
+    <Compile Remove="Migrations\20200311180429_test2.Designer.cs" />
+    <Compile Remove="Migrations\20200317132251_ExtendIdentityUser.cs" />
+    <Compile Remove="Migrations\20200317132251_ExtendIdentityUser.Designer.cs" />
+    <Compile Remove="Migrations\20200317132646_ExtendIdentityUser.cs" />
+    <Compile Remove="Migrations\20200317132646_ExtendIdentityUser.Designer.cs" />
+    <Compile Remove="Migrations\20200317132806_addPhotoPath.cs" />
+    <Compile Remove="Migrations\20200317132806_addPhotoPath.Designer.cs" />
+    <Compile Remove="Migrations\20200331084952_UserPosts.cs" />
+    <Compile Remove="Migrations\20200331084952_UserPosts.Designer.cs" />
+    <Compile Remove="Migrations\20200331092129_addPosts.cs" />
+    <Compile Remove="Migrations\20200331092129_addPosts.Designer.cs" />
+    <Compile Remove="Migrations\20200331092155_addPosts.cs" />
+    <Compile Remove="Migrations\20200331092155_addPosts.Designer.cs" />
+    <Compile Remove="Migrations\20200402065318_test.cs" />
+    <Compile Remove="Migrations\20200402065318_test.Designer.cs" />
+    <Compile Remove="Migrations\20200402065653_test2.cs" />
+    <Compile Remove="Migrations\20200402065653_test2.Designer.cs" />
+    <Compile Remove="Migrations\20200402102652_tets.cs" />
+    <Compile Remove="Migrations\20200402102652_tets.Designer.cs" />
+    <Compile Remove="Migrations\20200402102930_tets2.cs" />
+    <Compile Remove="Migrations\20200402102930_tets2.Designer.cs" />
+    <Compile Remove="Migrations\20200402103226_friendSystemAndPosts.cs" />
+    <Compile Remove="Migrations\20200402103226_friendSystemAndPosts.Designer.cs" />
+    <Compile Remove="Migrations\20200402103507_friendSystemAndPosts.cs" />
+    <Compile Remove="Migrations\20200402103507_friendSystemAndPosts.Designer.cs" />
+    <Compile Remove="Migrations\20200402104302_test.cs" />
+    <Compile Remove="Migrations\20200402104302_test.Designer.cs" />
+    <Compile Remove="Migrations\20200402105315_test22.cs" />
+    <Compile Remove="Migrations\20200402105315_test22.Designer.cs" />
+    <Compile Remove="Migrations\20200402105428_test24.cs" />
+    <Compile Remove="Migrations\20200402105428_test24.Designer.cs" />
+    <Compile Remove="Migrations\20200402105529_test25.cs" />
+    <Compile Remove="Migrations\20200402105529_test25.Designer.cs" />
+    <Compile Remove="Migrations\20200402105653_test26.cs" />
+    <Compile Remove="Migrations\20200402105653_test26.Designer.cs" />
+    <Compile Remove="Migrations\20200402110128_wadasd.cs" />
+    <Compile Remove="Migrations\20200402110128_wadasd.Designer.cs" />
+    <Compile Remove="Migrations\20200402110328_test.cs" />
+    <Compile Remove="Migrations\20200402110328_test.Designer.cs" />
+    <Compile Remove="Migrations\20200402110454_test.cs" />
+    <Compile Remove="Migrations\20200402110454_test.Designer.cs" />
+    <Compile Remove="Migrations\20200406080515_editPost.cs" />
+    <Compile Remove="Migrations\20200406080515_editPost.Designer.cs" />
+    <Compile Remove="Migrations\20200502105326_Inbox.cs" />
+    <Compile Remove="Migrations\20200502105326_Inbox.Designer.cs" />
+    <Compile Remove="Migrations\20200502105636_Inbox.cs" />
+    <Compile Remove="Migrations\20200502105636_Inbox.Designer.cs" />
+    <Compile Remove="Migrations\20200502113355_chat.cs" />
+    <Compile Remove="Migrations\20200502113355_chat.Designer.cs" />
+    <Compile Remove="Migrations\20200518073712_isMessageRead.cs" />
+    <Compile Remove="Migrations\20200518073712_isMessageRead.Designer.cs" />
+    <Compile Remove="Migrations\20200518074151_isMessageRead2.cs" />
+    <Compile Remove="Migrations\20200518074151_isMessageRead2.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+    <PackageReference Include="popper.js" Version="1.16.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+
+
+</Project>

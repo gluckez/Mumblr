@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAU9qHwrtND0idp+0DbZdICAAAAAACAAAAAAAQZgAAAAEAACAAAAD0xmil4ObXsnKk7t1E/bRg4DaRzPCWMhAGvIS36SiC2wAAAAAOgAAAAAIAACAAAACCys/pKge5S4AzAg+5UyYzRIVJ7ixoj354yeWTct8Ce4AAAAAxm6wh2kHEzMbhDRf3kcG6HUB5fnN6NpT8e4DEZRcWJ9Jzw22C7X4kzABCWZPYghZ2grJp6FEF7W7GH+y2UYVpAoR7P9aP9EmdOf5GVyVGr8OMdClHrSKoDME9NRDMfJkaFsSkLCSNVqEMTwF0hnN+DAnPoFEi505FajGXaRTbkUAAAABArX9w8vQGw5/RLsHNq+kiAuHY0c109Nfox3maXfz70yhDus7u11cbl2h8sN0SSoubpgpW6/cyoyIXAPxO500S</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="MumblrDBConnection">
+      <Value>Data Source=tcp:mumblrdbserver.database.windows.net,1433%3bInitial Catalog=Mumblr_db%3bUser Id=Timo%40mumblrdbserver%3bPassword=080851aa!</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="Mumblr.Models.AppDbContext">
+      <Value>Data Source=tcp:mumblrdbserver.database.windows.net,1433%3bInitial Catalog=Mumblr_db%3bUser Id=Timo%40mumblrdbserver%3bPassword=080851aa!</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

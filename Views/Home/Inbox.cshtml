@@ -1,0 +1,121 @@
+﻿@model InboxViewModel
+@inject SignInManager<ApplicationUser> signInManager
+@inject UserManager<ApplicationUser> userManager
+@inject IMumblrRepository mumblrRepository
+
+@{
+    ViewBag.Title = "Inbox";
+    var user = userManager.FindByNameAsync(signInManager.Context.User.Identity.Name).Result;
+    var photoPath = "~/images/" + (user.PhotoPath ?? "noimage.jpg");
+}
+
+    <div class="inboxContainer">
+        <!-- Display the friendsList-->
+        <div class="inboxFriendList" style="box-shadow: 4px 6px 12px -6px rgba(0,0,0,0.3)">
+            <!-- If the user did not add any friends to chat with-->
+            @if (Model.UserFriends.Any())
+            {
+                @foreach (var friend in Model.UserFriends)
+                {
+                    var userFriend = userManager.FindByIdAsync(friend).Result;
+                    var friendPhotoPath = "~/images/" + (userFriend.PhotoPath ?? "noimage.jpg");
+                    var unreadMessages = mumblrRepository.unreadMesssagesAmount(user.Id, userFriend.Id);
+                    var displayUnread = ($"({unreadMessages})");
+
+                    @if (userFriend.Id == Model.SelectedFriend)
+                    {
+                        <a asp-controller="home" asp-action="inbox" asp-route-id="@friend" class="inboxFriendCard" style="background-color: #eaeaea">
+                            <!--Change the background color of the selected friend-->
+
+                            <div class="avatarFeedWrapper">
+                                <img class="avatarFeed" src="@friendPhotoPath" asp-append-version="true" />
+                            </div>
+                            <div class="inboxFriendName">
+                                <p class="textStyle">@userFriend.UserName @if (unreadMessages > 0) {@displayUnread}</p>
+                            </div>
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-controller="home" asp-action="inbox" asp-route-id="@friend" class="inboxFriendCard">
+                            <!--Change the background color of the selected friend-->
+
+                            <div class="avatarFeedWrapper">
+                                <img class="avatarFeed" src="@friendPhotoPath" asp-append-version="true" />
+                            </div>
+                            <div class="inboxFriendName">
+                                <p class="textStyle">@userFriend.UserName @if (unreadMessages > 0) {@displayUnread}</p>
+                            </div>
+                        </a>
+                    }
+                }
+            }
+            else
+            {
+                <div style="padding: 6px">
+                    <p style="color: #353535" class="textStyle">You have not added any friends to chat with. To add friends, go to: <br />
+                    <a class="textStyle" asp-controller="Home" asp-action="ListUsers"><i class="fas fa-users" style="padding-right: 6px"></i>  Show Users</a>
+                </div>
+            }
+        </div>
+
+        <!-- Display the Chat-->
+        <!--Check if the user clicked on a friend to open their chatWindow-->
+        @if (Model.Chat != null)
+        {
+           <div class="chatWindowContainer" style="box-shadow: 4px 6px 12px -6px rgba(0,0,0,0.3)"> 
+               <div class="chatWindow";">
+
+                @foreach (var message in Model.Chat)
+                {
+                    <!-- Check if the user sent the message -->
+                    @if (message.sender == user.Id)
+                    {
+                        <div class="inboxChatItem boxProperties" style="margin-left: auto">
+                            <div style="grid-column-start: 1; grid-column-end: 3; text-align: right;">@message.Date.AddHours(1).ToString("dd.M.yyyy HH:mm")</div>
+                            <div class="avatarFeedWrapper">
+                                <img class="avatarFeed" src="@photoPath" asp-append-version="true" />
+                            </div>
+                            <div>
+                                @message.Message
+                            </div>
+                            <a class="inboxChatFooter" asp-controller="home" asp-action="deleteMessage" asp-route-id="@message.MessagesId"><i style="color: black; padding: 0 3px 3px 0" class="fas fa-trash-alt"></i></a>
+                        </div>
+                    }
+                    else
+                    {
+                        var friend = userManager.FindByIdAsync(message.sender);
+                        var friendPhotoPath = "~/images/" + (friend.Result.PhotoPath ?? "noimage.jpg");
+
+                        <div class="inboxChatItem boxProperties"  style="padding-bottom: 15px">
+                            <div style="grid-column-start: 1; grid-column-end: 3; text-align: right;">@message.Date.AddHours(1).ToString("dd.M.yyyy HH:mm")</div>
+                            <div class="avatarFeedWrapper">
+                                <img class="avatarFeed" src="@friendPhotoPath" asp-append-version="true" />
+                            </div>
+                            <div>
+                                @message.Message
+                            </div>
+                            
+                        </div>
+                    }
+                }
+            </div>
+
+            
+            <!--Add a message to the chat-->
+            <form method="post" class="chatForm" style="padding: 8px">
+                @{ var friendName = userManager.FindByIdAsync(Model.SelectedFriend).Result.UserName;
+                }
+                <div>
+                    <textarea style="border-style: none; resize: none" asp-for="NewChatMessage.Message" placeholder="Write a message to @friendName..."></textarea>
+                </div>
+                <div>
+                    <span asp-validation-for="NewChatMessage.Message" class="text-danger"></span>
+                </div>
+                <input hidden asp-for="NewChatMessage.recipient" value="@Model.SelectedFriend" />
+                <button class="customButton" id="btnDelete" onclick="btnDelete" style="width: 5em; margin: 3px 0px;" type="submit">Post</button>
+            </form>
+        </div>
+        }
+    </div>
+

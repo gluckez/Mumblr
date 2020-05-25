@@ -1,0 +1,27 @@
+﻿@model List<ApplicationUser>
+
+
+
+<div class="listUsers">
+    @foreach (var user in Model)
+    {
+        var PhotoPath = "~/images/" + (user.PhotoPath ?? "noimage.jpg");
+        <div class="userCard boxProperties">
+
+            <div>
+                <h5>@user.UserName</h5>
+            </div>
+
+            <div>
+                <img style="max-height: 100%; max-width: 100%" src="@PhotoPath" asp-append-version="true" />
+            </div>
+
+
+            <div class="userCardFooter">
+                <a asp-controller="Home" asp-action="showProfile" asp-route-id="@user.Id"
+                   class="customButton">Show Profile</a>
+            </div>
+        </div>
+    }
+</div>
+

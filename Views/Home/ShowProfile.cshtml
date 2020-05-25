@@ -1,0 +1,147 @@
+﻿@model ShowProfileViewModel
+@inject SignInManager<ApplicationUser> signInManager
+@inject UserManager<ApplicationUser> userManager
+@inject IMumblrRepository mumblrRepository
+
+@{
+    ViewBag.Title = Model.UserName;
+    var photoPath = "~/images/" + (Model.PhotoPath ?? "noimage.jpg");
+    var users = mumblrRepository.GetAllFriends();
+    var userId = userManager.FindByNameAsync(signInManager.Context.User.Identity.Name).Result.Id;
+    var applicationUser = userManager.FindByNameAsync(signInManager.Context.User.Identity.Name).Result;
+}
+
+<div class="profile">
+    <div class="profileLeft">
+        <div class="boxProperties marginBottom">
+            <div style="padding: 5px; margin-top: 0.5em; text-align: center">
+                <h5 style="font-size: 1.25rem">@Model.UserName</h5>
+            </div>
+            <div  style="display: grid; justify-content: center">
+                <img class="avatar" src="@photoPath" asp-append-version="true" />
+            </div>
+        </div>
+
+
+        <div class="boxProperties marginBottom" style="padding: 8px">
+            @if (Model.Bio != null)
+            {
+                <p>@Model.Bio</p>
+            }
+            else
+            {
+                <p>No Biography to show</p>
+            }
+        </div>
+
+        <div class="boxProperties" style="padding: 5px; display: grid; grid-template-columns: 1fr 1fr;">
+            @if (signInManager.Context.User.Identity.Name == Model.UserName)
+            {
+                <a class="customButton" asp-action="EditUser" asp-controller="Home" asp-route-id="@userId">Edit Profile</a>
+                <a class="customButton" onclick="return confirm('Are you sure you want to delete this account?')" asp-action="DeleteUser" asp-controller="Account" asp-route-id="@userId">Delete Profile</a>
+            }
+            else
+            {
+                bool friendFound = false;
+                <!-- Check if they are friends or not-->
+                if (users.Any())
+                {
+
+
+                    foreach (var user in users)
+                    {
+                        if (user.FriendId == Model.UserId && user.UserId == userId || user.FriendId == userId && user.UserId == Model.UserId)
+                        {
+                            <a class="customButton" asp-controller="home" asp-action="removeFriend" asp-route-id="@Model.UserId">Remove Friend</a>
+                            friendFound = true;
+                        }
+                    }
+                }
+                if (!friendFound)
+                {
+                    <a class="customButton" asp-controller="home" asp-action="addFriend" asp-route-id="@Model.UserId">Add Friend</a>
+                }
+
+            }
+        </div>
+    </div>
+
+    <div class="profileRight">
+        @if (signInManager.Context.User.Identity.Name == Model.UserName)
+        {
+            <!-- Creating a Post -->
+            <div>
+                <form method="post" class="postForm boxProperties">
+                    <div style="display: grid">
+                        <input asp-for="PostTitle" placeholder="Enter a title..." />
+                    </div>
+                    <div class="smallPadding">
+                        <span asp-validation-for="PostTitle" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <textarea style="border-style: none; border-top: 1px solid grey; resize: none" asp-for="PostMessage" placeholder="What's on your mind?"></textarea>
+                    </div>
+                    <div class="smallPadding">
+                        <span asp-validation-for="PostMessage" class="text-danger"></span>
+                    </div>
+                    <button class="customButton" style="width: 5em; margin: 3px 0px;" type="submit">Post</button>
+                </form>
+            </div>
+        }
+
+        <!-- Displaying the Feed (Posts) -->
+        @foreach (var post in Model.Feed)
+        {
+            // Get the post's applicationUser's photopath
+            var postUser = userManager.FindByIdAsync(post.UserId);
+            var feedAvatar = "~/images/" + (postUser.Result.PhotoPath ?? "noimage.jpg");
+                    
+
+            <div class="post boxProperties">
+                <div class="postTitle">
+                    @userManager.FindByIdAsync(post.UserId).Result.UserName: @post.Title
+                </div>
+                <div class="postDate">
+                    @post.Date.AddHours(1).ToString("dd.M.yyyy HH:mm")
+                </div>
+                <div class="avatarFeedWrapper">
+                    <img class="avatarFeed" src="@feedAvatar" asp-append-version="true" />
+                </div>
+                <div class="postMessage">@post.Message</div>
+                
+                <div class="postFooter">
+                    @{ var usersWhoLikedThisPost = mumblrRepository.getPostLikes(post.PostId);
+                        var likeCount = usersWhoLikedThisPost.Count();
+                        bool likedByUser = false;
+                        if (usersWhoLikedThisPost.Any())
+                        {
+                            foreach (var user in usersWhoLikedThisPost)
+                            {
+                                if (user == userId)
+                                {
+                                    <a asp-controller="home" asp-action="unLikePost" asp-route-currentProfile="@Model.UserId" asp-route-id="@post.PostId"><i style="color: darkred; padding-right: 3px" class="fas fa-heart"></i></a>
+                                    likedByUser = true;
+                                }
+                            }
+                        }
+                        if(!likedByUser)
+                        {
+                            <a asp-controller="home" asp-action="likePost" asp-route-currentProfile="@Model.UserId" asp-route-id="@post.PostId"><i style="color: black; padding-right: 3px" class="far fa-heart"></i></a>
+                        }
+                        if (likeCount > 0)
+                        {
+                            <p style="font-family: sans-serif; font-size: 1em">@likeCount</p>
+                        }
+                    }
+                    <!--Make the post deletable e if its the user's own post-->
+                    @if (post.UserId == userId)
+                    {
+                        <a asp-controller="home" asp-action="deletePost" asp-route-id="@post.PostId"><i style="color: black; padding-right: 3px; padding-left: 10px;" class="fas fa-trash-alt"></i></a>
+                    }
+                </div>
+            </div>     
+        }
+    </div>
+</div>
+
+
